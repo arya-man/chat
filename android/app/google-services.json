@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "730338517619",
+    "firebase_url": "https://mach-flut-chat.firebaseio.com",
+    "project_id": "mach-flut-chat",
+    "storage_bucket": "mach-flut-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730338517619:android:e2bdb836c12b3ff005c006",
+        "android_client_info": {
+          "package_name": "com.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730338517619-e0a6vbvvq74fuoj0r9pju21ird6pcvcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4OWmHWZcKuw8ijpSRoDsk1H5uDUY0NJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730338517619-e0a6vbvvq74fuoj0r9pju21ird6pcvcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730338517619:android:32e14a42a24075ab05c006",
+        "android_client_info": {
+          "package_name": "com.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730338517619-e0a6vbvvq74fuoj0r9pju21ird6pcvcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4OWmHWZcKuw8ijpSRoDsk1H5uDUY0NJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730338517619-e0a6vbvvq74fuoj0r9pju21ird6pcvcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

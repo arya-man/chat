@@ -1,0 +1,594 @@
+
+
+
+
+
+id: item.id, 
+              isGroup: item.data.isGroup, 
+              members: item.data.members,
+              typing: item.data.typing,
+              last_message: item.data.last_message,
+              last_time: item.data.last_time,
+              title: item.data.title
+
+
+
+
+
+
+
+
+
+import React, {Component} from 'react';
+import {Text, View, Image, Dimensions, TextInput,FlatList,SafeAreaView} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import Box from './neumorphButton';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient';
+import Svg, {Path} from 'react-native-svg';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+const screenWidth = Math.round(Dimensions.get('window').width)
+import {connect} from 'react-redux'
+import {GET_INITIAL_MESSAGES, GET_REALTIME_MESSAGES , GET_MORE_MESSAGES} from '../redux/userRedux'
+import firestore from '@react-native-firebase/firestore'
+import Clipboard from '@react-native-community/clipboard'
+
+var unsubscribe
+class messageScreen extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      listenStart: undefined,
+      message: ''
+    }
+    this.getInitialMessages.bind(this)
+  }
+
+  dummy = () => {
+    console.log('sjdj');
+  }
+
+  setLastMessage(data) {
+    firestore().collection('chatrooms')
+      .doc(`${this.props.navigation.getParam('id')}`)
+      .update({
+        last_message: data
+      })
+  }
+
+  sendMessage(data) {
+    firestore().collection('chatrooms')
+      .doc(`${this.props.navigation.getParam('id')}`)
+      .collection('messages')
+      .add({
+        sender: this.props.user.userinfo.username,
+        content: data,
+        createdAt: new Date().toISOString()
+      })
+  }
+
+  clearUnread() {
+    firestore().collection('unread')
+      .doc(`${this.props.user.userinfo.username}`)
+      .update({
+        [this.props.navigation.getParam('id')] : 0
+      })
+  }
+
+  getMoreMessages(id) {
+    firestore().collection('chatrooms')
+        .doc(`${id}`).collection('messages')
+        .orderBy('createdAt','desc')
+        .startAfter(this.props.user.messages[this.props.navigation.getParam('id')][this.props.user.messages[this.props.navigation.getParam('id')].length -1]['createdAt'])
+        .limit(10)
+        .get()
+        .then((query) => {
+          var chats = []
+          query.forEach((doc) => {
+            chats.push(doc.data())
+          })
+          this.props.dispatch({
+            type: GET_MORE_MESSAGES,
+            payload: {
+              data: chats,
+              chatroom_id: id
+          } 
+          })
+        })
+  }
+
+  getInitialMessages(id,limit) {
+        firestore().collection('chatrooms')
+        .doc(`${id}`).collection('messages')
+        .orderBy('createdAt','desc')
+        .limit(limit)
+        .get()
+        .then((query) => {
+          var chats =[]
+            query.forEach((doc) => {
+                var d =doc.data()
+                d['id'] = doc.id
+                chats.push(d)
+            })
+            this.props.dispatch({
+                type: GET_INITIAL_MESSAGES,
+                payload: {
+                    data: chats,
+                    chatroom_id: id
+                }
+            })
+            this.setState({listenStart: chats[0]})
+        })
+        .catch(err => console.log(err))
+      }
+
+  getRealtimeMessages(id,start) {
+       unsubscribe = firestore().collection('chatrooms')
+        .doc(`${id}`)
+        .collection('messages')
+        .orderBy('createdAt')
+        .startAfter(start)
+        .onSnapshot(snapshot => {
+          var chats =[]
+            snapshot.docChanges().forEach((change) => {
+                if(change.type === 'added') {
+                  chats.unshift(change.doc.data())
+                }
+            })
+            this.props.dispatch({
+              type: GET_REALTIME_MESSAGES,
+              payload: {
+                  chatroom_id: id,
+                  data: chats
+              }
+          })
+        },err => console.log(err))
+    }
+
+  componentDidMount() {
+    var unread=this.props.user.unread[this.props.navigation.getParam('id')]
+    if(unread > 0) {
+      this.clearUnread()
+    }
+
+    if(this.props.user.messages[this.props.navigation.getParam('id')] === undefined) {
+      var lim = 15
+      var doc_id = this.props.navigation.getParam('id')
+      lim = +lim + +unread
+      this.getInitialMessages(doc_id,lim)
+    } 
+  }
+
+  componentDidUpdate(prevProps,prevState) {
+
+    var doc_id = this.props.navigation.getParam('id')
+    if(prevState.listenStart !== this.state.listenStart) {
+      var startingPoint = this.state.listenStart
+      delete startingPoint.id 
+     this.getRealtimeMessages(doc_id,startingPoint.createdAt)
+    }
+  }
+
+  componentWillUnmount() {
+
+    // var arr = this.props.user.messages[this.props.navigation.getParam('id')]
+    // var last = arr[0]['createdAt'] + '_' + arr[0]['content']
+    // this.setLastMessage(last)
+    
+  }
+  render() {
+    return (
+      <View style={{flex: 1, backgroundColor: 'rgba(234,235,243,1)'}}>
+        <TopBar
+          backButtonFunction={this.dummy}
+          profilePic={require('../assets/user.jpg')}
+          username="Hasir Mushtaq"
+          navigateToProfile={this.dummy}
+          onlineOrNot="last seen at 10:23AM"
+          typing='Hasir is typing...'
+        />
+            <SafeAreaView
+            style={{
+              flex: 1,
+              zIndex: -1,
+              marginTop: 73,
+              marginBottom: 65,
+            }}>
+              <View style={{flex:1}}>
+          {/* Pass all the message rending here only inside this KeyboardAwareScrollView component, it handles all the keyboard stuff properly. */}
+          <FlatList
+            inverted
+            keyExtractor= {item => item.sender + item.createdAt}
+            data={this.props.user.messages[this.props.navigation.getParam('id')]}
+            showsVerticalScrollIndicator={false}
+            renderItem = {({item}) => {
+              var dt = new Date(item.createdAt)
+              dt = dt.getHours() + ':' + dt.getMinutes()
+              if(item.sender == this.props.user.userinfo.username) {
+                  return(
+                      <OutgoingMsg
+                      username="You"
+                      message={item.content}
+                      time={dt}
+                    />
+                  )
+              }
+              else {
+                return (
+                  <TouchableOpacity>
+                    <IncomingMsg
+                  username={item.sender}
+                  message={item.content}
+                  navigateToProfile={() => {
+                    console.log("TIME",item.createdAt);
+                  }}
+                  time={dt}
+                />
+                  </TouchableOpacity>
+                  
+                )
+                
+              }
+            }
+          }
+          />
+          
+          </View>
+          </SafeAreaView>
+        {/* </KeyboardAwareScrollView> */}
+        {/* This below contains the Message Text Input Field and the send button, use the text input to take in the message, and pass 
+            the message sending logic at ....(1) below.*/}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+            position: 'absolute',
+            bottom: 0
+          }}>
+          <Box height={50} width={0.8 * screenWidth} borderRadius={25}>
+            <View
+              style={{
+                height: 50,
+                width: 0.9 * screenWidth,
+                borderWidth: 1,
+                borderColor: '#e5e5e5',
+                backgroundColor: '#eaebf3',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <TextInput
+                placeholder="Type to send a message..."
+                placeholderColor="#B5BFD0"
+                style={{
+                  fontWeight: 'bold',
+                  paddingHorizontal: 20,
+                  width: '100%',
+                }}
+                onChangeText = {(text) => {
+                  this.setState({message: text})
+                }}
+                value={this.state.message}
+              />
+            </View>
+          </Box>
+          <Box height={50} width={50} borderRadius={25}>
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              colors={['#EA688A', '#EA7A7F']}
+              style={{
+                height: 50,
+                borderRadius: 25,
+                width: 50,
+                borderWidth: 1,
+                borderColor: '#e5e5e5',
+                alignSelf: 'center',
+                justifyContent: 'center',
+              }}>
+              <Icon
+                onPress={() => {
+                  this.sendMessage(this.state.message)
+                  this.state.message=''
+                }} // Use using send message logic here. ....(1)
+                name="feather"
+                color="#fff"
+                size={20}
+                style={{alignSelf: 'center'}}
+              />
+            </LinearGradient>
+          </Box>
+        </View>
+      </View>
+    );
+  }
+}
+// This is the messgage incoming component, The Pink One, and has the following props:
+// 1. username: A String, use 'You' for example.
+// 2. message: A string, the message.
+// 3. time: A string, the time.
+// 4. navigateToProfile: A function, on pressing the username you need to navigate the user to the messagers profile.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// YOU DONT HAVE TO MEDDLE WITH THE BELOW WRITTEN CODE JUST FOLLOW ABOVE INSTRUCTIONS.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class IncomingMsg extends Component {
+  render() {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onLongPress={() => {
+        Clipboard.setString(this.props.message)
+      }}>
+      <View>
+        <View
+          style={{
+            backgroundColor: '#EA688A',
+            marginLeft: 15,
+            maxWidth: 250,
+            alignSelf: 'flex-start',
+            paddingHorizontal: 15,
+            paddingTop: 5,
+            paddingBottom: 7,
+            borderRadius: 20,
+          }}>
+          <Text
+            style={{color: 'white', fontWeight: 'bold'}}
+            onPress={this.props.navigateToProfile}>
+            {this.props.username}
+          </Text>
+          <Text style={{color: '#f2f2f2'}}>{this.props.message}</Text>
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: -1,
+              flex: 1,
+              justifyContent: 'flex-end',
+              alignItems: 'flex-start',
+            }}>
+            <Svg
+              style={{left: -6}}
+              width={15.5}
+              height={17.5}
+              viewBox="32.484 17.5 15.515 17.5"
+              enable-background="new 32.485 17.5 15.515 17.5">
+              {/* <Path
+                d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                fill="#EA688A"
+                x="0"
+                y="0"
+              /> */}
+            </Svg>
+          </View>
+        </View>
+        <Text
+          style={{
+            alignSelf: 'flex-start',
+            fontSize: 10,
+            opacity: 0.6,
+            marginLeft: 25,
+            fontWeight: 'bold'
+          }}>
+          {this.props.time}
+        </Text>
+      </View>
+      </TouchableOpacity>
+    );
+  }
+}
+// This is the messgage outgoing component, The Blue One, and has the following props:
+// 1. username: A String, use 'You' for example.
+// 2. message: A string, the message.
+// 3. time: A string, the time.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// YOU DONT HAVE TO MEDDLE WITH THE BELOW WRITTEN CODE JUST FOLLOW ABOVE INSTRUCTIONS.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class OutgoingMsg extends Component {
+  render() {
+    return (
+      
+      <View style={{alignSelf: 'flex-end', marginRight: 15}}>
+        <TouchableOpacity
+        activeOpacity={0.6}
+        onLongPress={() => {
+        Clipboard.setString(this.props.message)
+      }}>
+        <View
+          style={{
+            backgroundColor: '#4e7bb4',
+            maxWidth: 250,
+            alignSelf: 'flex-start',
+            paddingHorizontal: 15,
+            paddingTop: 5,
+            paddingBottom: 7,
+            borderRadius: 20,
+          }}>
+          <Text style={{color: 'white', fontWeight: 'bold'}}>
+            {this.props.username}
+          </Text>
+          <View>
+          <Text style={{color: 'white'}}>{this.props.message}</Text>
+          
+          </View>
+          
+          <View
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: -1,
+              flex: 1,
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}>
+            <Svg
+              style={{right: -6}}
+              width={15.5}
+              height={17.5}
+              viewBox="32.485 17.5 15.515 17.5"
+              enable-background="new 32.485 17.5 15.515 17.5">
+              {/* <Path
+                d="M48,35c-7-4-6-8.75-6-17.5C28,17.5,29,35,48,35z"
+                fill="#4e7bb4"
+                x="0"
+                y="0"
+              /> */}
+            </Svg>
+
+          </View>
+        </View>
+        <Text
+          style={{
+            alignSelf: 'flex-end',
+            fontSize: 10,
+            opacity: 0.6,
+            marginRight: 10,
+            fontWeight: 'bold'
+          }}>
+          {this.props.time}
+        </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+// This is the top bar, containing back button, profile pic and all. The props are:
+// 1. backButtonFunction: A function, on press use the navigation library to go to the previous screen.
+// 2. profilePic: the link to profile pic. If url: send as "{uri: 'https://google.com/images/12474'}". If it is a local file
+//    send as "require('../../Assets/abc.jpg')".
+// 3. username: A string, the username.
+// 4. navigateToProfile: A function, on pressing the username you need to navigate the user to the messagers profile.
+// 5. onlineOrNot: A string, if user is online supply "Online" else supply "last seen at 10.42AM", for example.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// YOU DONT HAVE TO MEDDLE WITH THE BELOW WRITTEN CODE JUST FOLLOW ABOVE INSTRUCTIONS.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export class TopBar extends Component {
+  render() {
+  //   var typ = Object.keys(this.props.user.chatrooms[this.props.navigation.getParam('id')]['typing']).filter(function(key) {
+  //     return obj[key]
+  // })
+
+  // typ = typ.filter(username => username!==this.props.user.userinfo.username)
+    return (
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          width: screenWidth,
+          backgroundColor: 'rgba(234,235,243,1)',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginRight: 15,
+            marginLeft: 5,
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this.props.backButtonFunction}>
+              <Icon
+                name="chevron-left"
+                color="#7f7f7f"
+                size={35}
+                style={{alignSelf: 'center', marginTop: 15}}
+              />
+            </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: 10,
+              }}>
+              <Box width={50} height={50} borderRadius={25}>
+                <Image
+                  style={{height: 50, width: 50}}
+                  source={this.props.profilePic}
+                />
+              </Box>
+              <View style={{marginLeft: 10}}>
+                <Text
+                  style={{fontWeight: 'bold', fontSize: 16}}
+                  onPress={this.props.navigateToProfile}>
+                  {this.props.username}
+                </Text>
+                <Text style={{fontSize: 10, opacity: 0.5}}>
+                  {this.props.onlineOrNot}
+                </Text>
+                <Text style={{fontSize: 10, opacity: 0.5}}>
+                  {this.props.typing}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <MaterialIcon name="video-call" size={25} color="#404040" />
+            <MaterialIcon
+              style={{marginLeft: 8, marginRight: 8}}
+              name="call"
+              size={25}
+              color="#404040"
+            />
+            <Icon name="more-vertical" size={25} color="#404040" />
+          </View>
+        </View>
+        <View
+          style={{
+            borderBottomColor: '#BFBFBF',
+            borderBottomWidth: 2,
+            width: '90%',
+            opacity: 0.2,
+            alignSelf: 'center',
+            marginTop: 5,
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return (
+      {
+          user:state.user
+      }
+  )
+}
+
+export default connect(mapStateToProps)(messageScreen)
+
+
+
+
+  {
+    id: '21',
+    title: '21',
+  },
+  {
+    id: '22',
+    title: '22',
+  },
+  {
+    id: '23',
+    title: '23,
+  },
+  {
+    id: '24',
+    title: '24',
+  },
+  {
+    id: '25',
+    title: '25',
+  },
+  {
+    id: '26',
+    title: '26',
+  },
+  {
+    id: '27',
+    title: '27',
+  },
