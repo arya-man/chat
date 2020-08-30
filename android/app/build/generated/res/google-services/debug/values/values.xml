@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">730338517619-e0a6vbvvq74fuoj0r9pju21ird6pcvcn.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://mach-flut-chat.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">730338517619</string>
+    <string name="google_api_key" translatable="false">AIzaSyB4OWmHWZcKuw8ijpSRoDsk1H5uDUY0NJw</string>
+    <string name="google_app_id" translatable="false">1:730338517619:android:32e14a42a24075ab05c006</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyB4OWmHWZcKuw8ijpSRoDsk1H5uDUY0NJw</string>
+    <string name="google_storage_bucket" translatable="false">mach-flut-chat.appspot.com</string>
+    <string name="project_id" translatable="false">mach-flut-chat</string>
+</resources>

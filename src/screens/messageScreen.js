@@ -81,47 +81,47 @@ class messageScreen extends Component {
     this.onlineCount = 0
     var arr = []
     var onlineArr = []
-    if(this.props.navigation.getParam('members').length > 2) {
-      for ( var i = 0 ; i < this.props.navigation.getParam('members').length ; i+=1 ) {
-        if(this.props.navigation.getParam('members')[i] !== this.props.user.userinfo.username) {
+    if (this.props.navigation.getParam('members').length > 2) {
+      for (var i = 0; i < this.props.navigation.getParam('members').length; i += 1) {
+        if (this.props.navigation.getParam('members')[i] !== this.props.user.userinfo.username) {
           arr.push(this.props.navigation.getParam('members')[i])
         }
       }
-  
-      for ( var i = 0 ; i < arr.length ; i+=1 ) {
-        if(this.props.user.friends[arr[i]] !== undefined) {
-          if(this.props.user.friends[arr[i]]['online'] === 'online') {
+
+      for (var i = 0; i < arr.length; i += 1) {
+        if (this.props.user.friends[arr[i]] !== undefined) {
+          if (this.props.user.friends[arr[i]]['online'] === 'online') {
             onlineArr.push(arr[i])
           }
-          if(onlineArr.length > 2) {
+          if (onlineArr.length > 2) {
             break;
           }
         }
       }
 
-      if(onlineArr.length === 0) {
+      if (onlineArr.length === 0) {
         return 'no one is online'
       }
-      else if(onlineArr.length === 1) {
+      else if (onlineArr.length === 1) {
         return `${onlineArr[0]} is online`
       }
-      else if(onlineArr.length === 2) {
+      else if (onlineArr.length === 2) {
         return `${onlineArr[0]} and ${onlineArr[1]} are online`
       }
       else {
         return 'several are online'
       }
-      
+
     }
     else {
-      for ( var i = 0 ; i < this.props.navigation.getParam('members').length ; i+=1 ) {
-        if(this.props.navigation.getParam('members')[i] !== this.props.user.userinfo.username) {
+      for (var i = 0; i < this.props.navigation.getParam('members').length; i += 1) {
+        if (this.props.navigation.getParam('members')[i] !== this.props.user.userinfo.username) {
           return `${this.props.user.friends[this.props.navigation.getParam('members')[i]]['online']}`
         }
       }
     }
   }
-    
+
 
   clearUnread() {
     firestore().collection('unread')
@@ -154,6 +154,7 @@ class messageScreen extends Component {
   }
 
   setLastMessage(msg, time) {
+    console.log("SET LAST MESSAGE TIME",time)
     firestore().collection('chatrooms')
       .doc(`${this.props.navigation.getParam('id')}`)
       .update({
@@ -172,6 +173,7 @@ class messageScreen extends Component {
         content: data,
         createdAt: date
       })
+      console.log("SEND MESSAGE TIME",date)
 
     this.setLastMessage(data, date)
     this.setUnread()
@@ -330,7 +332,7 @@ class messageScreen extends Component {
       this.typingStatus()
     }
 
-    if(this.props.user.friends !== prevProps.user.friends) {
+    if (this.props.user.friends !== prevProps.user.friends) {
       this.typingStatus()
     }
 
@@ -352,7 +354,7 @@ class messageScreen extends Component {
 
 
   componentWillUnmount() {
-    if (unread > 0) {
+    if (this.props.user.unread[this.props.navigation.getParam('id')] > 0) {
       this.clearUnread()
     }
     if (this.state.typeStatus === true) {
@@ -365,7 +367,6 @@ class messageScreen extends Component {
 
     console.log("UNMOUNTING")
   }
-
   render() {
     // console.log("REPLICA",this.props.user.replica)
     if (this.state.loading === true) {
@@ -431,7 +432,7 @@ class messageScreen extends Component {
                   dt = `${hours}:${minutes} AM`
                 }
               }
-              if (item.sender == this.props.user.userinfo.username && (index !== unread || unread === 0)) {
+              if (item.sender == this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
                 return (
                   <OutgoingMsg
                     isGroupChat={false}
@@ -442,7 +443,7 @@ class messageScreen extends Component {
                   />
                 )
               }
-              else if (item.sender == this.props.user.userinfo.username && unread > 0 && index === unread) {
+              else if (item.sender == this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.navigate('last_time')) {
                 return (
                   <View>
                     <ChatDate chatDate={`${unread} Unread Messages`} />
@@ -456,7 +457,7 @@ class messageScreen extends Component {
                   </View>
                 )
               }
-              else if (item.sender != this.props.user.userinfo.username && (index !== unread || unread === 0)) {
+              else if (item.sender != this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
                 return (
                   <IncomingMsg
                     isGroupChat={this.props.navigation.getParam('isGroup')}
@@ -470,7 +471,7 @@ class messageScreen extends Component {
                   />
                 )
               }
-              else if (item.sender != this.props.user.userinfo.username && unread > 0 && index === unread) {
+              else if (item.sender != this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.navigate('last_time')) {
                 return (
                   <View>
                     <ChatDate chatDate={`${unread} Unread Messages`} />
@@ -491,7 +492,7 @@ class messageScreen extends Component {
               //////////////////////////////////////////////////////////////////////////////////
               //////////////////////////////////////////////////////////////////////////////////
 
-              if (item.sender == this.props.user.userinfo.username && (index !== unread || unread === 0)) {
+              if (item.sender == this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
                 return (
                   <OutgoingZap
                     zapMessage={`You zapped you a ${item.content}`}
@@ -503,7 +504,7 @@ class messageScreen extends Component {
                   />
                 )
               }
-              else if (item.sender == this.props.user.userinfo.username && unread > 0 && index === unread) {
+              else if (item.sender == this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.getParam('last_time')) {
                 return (
                   <View>
                     <ChatDate chatDate={`${unread} Unread Messages`} />
@@ -518,7 +519,7 @@ class messageScreen extends Component {
                   </View>
                 )
               }
-              else if (item.sender != this.props.user.userinfo.username && (index !== unread || unread === 0)) {
+              else if (item.sender != this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
                 return (
                   <IncomingZap
                     zapMessage={`${item.sender} zapped you a ${item.content}`}
@@ -530,7 +531,7 @@ class messageScreen extends Component {
                   />
                 )
               }
-              else if (item.sender != this.props.user.userinfo.username && unread > 0 && index === unread) {
+              else if (item.sender != this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.navigate('last_time')) {
                 return (
                   <View>
                     <ChatDate chatDate={`${unread} Unread Messages`} />
@@ -664,8 +665,10 @@ class messageScreen extends Component {
                 }}>
                 <Icon
                   onPress={() => {
-                    this.sendMessage(this.state.message)
-                    this.state.message = ''
+                    if (this.state.message !== '') {
+                      this.sendMessage(this.state.message)
+                      this.setState({ message: '' })
+                    }
                   }} // Use using send message logic here. ....(1)
                   name="feather"
                   color="#fff"

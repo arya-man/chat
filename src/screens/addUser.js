@@ -8,12 +8,13 @@ import {
   Image,
   FlatList,
   SafeAreaView,
-  Button
+  Modal
 } from 'react-native';
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Feather';
 import Box from './neumorphButton'
 import firestore from '@react-native-firebase/firestore'
+import LinearGradient from 'react-native-linear-gradient';
 
 var select = {}
 
@@ -24,11 +25,18 @@ class addPeople extends Component {
     this.state = {
       select: {},
       display: undefined,
-      started : undefined,
-      displayReplica : undefined,
-      enteredText: ''
+      started: undefined,
+      displayReplica: undefined,
+      enteredText: '',
+      createRoomModalVisible: false,
     }
   }
+
+  toggleCreateRoomModal = () => {
+    this.setState({
+      createRoomModalVisible: !this.state.createRoomModalVisible,
+    });
+  };
 
   dummy = () => {
     console.log('selcted');
@@ -87,49 +95,43 @@ class addPeople extends Component {
   // }
 
   searchFunction = (text) => {
-    console.log("TEXT",text)
-    if(text === '') {
-      this.setState({display : this.state.displayReplica})
+    if (text === '') {
+      this.setState({ display: this.state.displayReplica })
     }
     else {
       var arr = []
-      for(var i =0;i<this.state.displayReplica.length ; i+=1 ) {
-        if(this.state.displayReplica[i]['data']['username'].includes(text)) {
+      for (var i = 0; i < this.state.displayReplica.length; i += 1) {
+        if (this.state.displayReplica[i]['data']['username'].includes(text)) {
           // console.log("IN MATCH",this.state.displayReplica[i]['data']['username'])
           arr.push(this.state.displayReplica[i])
         }
       }
-      this.setState({display: arr})
+      this.setState({ display: arr })
     }
   }
 
   componentDidMount() {
-    if(this.props.user.friendsReplica !== undefined) {
-      this.setState({started: true})
-      this.setState({display: this.props.user.friendsReplica})
-      this.setState({displayReplica: this.props.user.friendsReplica})
+    if (this.props.user.friendsReplica !== undefined) {
+      this.setState({ started: true })
+      this.setState({ display: this.props.user.friendsReplica })
+      this.setState({ displayReplica: this.props.user.friendsReplica })
     }
   }
 
-  componentDidUpdate(prevProps , prevState) {
-    if(prevProps.friendsReplica === undefined) {
-      if(this.state.started === false) {
-        console.log("IN DID UPDATE CHANGE")
-        this.setState({display: this.props.user.friendsReplica})
-        this.setState({displayReplica: this.props.user.friendsReplica})
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.friendsReplica === undefined) {
+      if (this.state.started === false) {
+        this.setState({ display: this.props.user.friendsReplica })
+        this.setState({ displayReplica: this.props.user.friendsReplica })
       }
     }
   }
 
   render() {
-    console.log("SELECTED",this.state.select)
+    console.log("SELECTED", this.state.select)
     const screenWidth = Math.round(Dimensions.get('window').width);
     return (
       <View style={{ flex: 1, backgroundColor: 'rgba(234,235,243,1)' }}>
-        <Button title='done' onPress={() => {
-          this.onSubmit()
-        }}
-        />
         <View
           style={{
             flexDirection: 'row',
@@ -215,8 +217,7 @@ class addPeople extends Component {
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
               var isOrno = false
-              if(select[item.data.username] === true) {
-                console.log("USERNAME",item.data.username)
+              if (select[item.data.username] === true) {
                 isOrno = true
               }
               return (
@@ -226,7 +227,7 @@ class addPeople extends Component {
                   selectFunction={() => {
                     // this.setState({ select: [...this.state.select, item.data.username] })
                     select[item.data.username] = true
-                    this.setState({select: select})
+                    this.setState({ select: select })
                   }}
                   unSelectFunction={() => {
                     // this.setState({
@@ -237,14 +238,135 @@ class addPeople extends Component {
                     //   })
                     // })
                     delete select[item.data.username]
-                    this.setState({select: select})
+                    this.setState({ select: select })
                   }}
-                  selectOrNot = {isOrno}
+                  selectOrNot={isOrno}
                 />
               )
             }}
           />
         </SafeAreaView>
+        {/* //////////////////// BUTTON ////////////////////////////// */}
+        <View
+          style={{
+            paddingBottom: 10,
+            borderTopWidth: 2,
+            borderTopColor: "rgba(191,191,191,0.3)",
+            backgroundColor: "rgba(234,235,243,1)",
+            alignItems: "center",
+            width: "100%",
+            position: "absolute",
+            bottom: 0,
+            zIndex: 5,
+          }}
+        >
+          <CreateRoomButton
+            height={40}
+            width={300}
+            borderRadius={20}
+            createRoom={() => {
+              console.log("LENGTH",Object.keys(this.state.select).length)
+              if(Object.keys(this.state.select).length > 1) {
+                console.log("IN")
+                this.toggleCreateRoomModal()
+              }
+              else {
+                console.log("YEAH")
+              }
+            }}
+          />
+        </View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.createRoomModalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0,0,0,0.2)",
+            }}
+          >
+            <View
+              style={{
+                height: 250,
+                width: "80%",
+                borderWidth: 3,
+                borderColor: "#e5e5e5",
+                backgroundColor: "rgba(234,235,243,1)",
+                borderRadius: 10,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginTop: 5,
+                  alignItems: "center",
+                  paddingHorizontal: 15,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#4e7bb4",
+                    fontWeight: "bold",
+                    fontSize: 20,
+                  }}
+                >
+                  Create Room
+                </Text>
+                <Icon
+                  name="x-circle"
+                  style={{ color: "#EA688A" }}
+                  size={25}
+                  onPress={this.toggleCreateRoomModal}
+                />
+              </View>
+              <View
+                style={{
+                  marginTop: 10,
+                  borderBottomColor: "#BFBFBF",
+                  borderBottomWidth: 2,
+                  borderRadius: 2,
+                  width: "100%",
+                  opacity: 0.2,
+                }}
+              />
+              <Box
+                height={40}
+                width={275}
+                borderRadius={20}
+                style={{ alignSelf: "center", marginTop: 10 }}
+              >
+                <TextInput
+                  placeholder="Hashtag/Title of the room"
+                  placeholderTextColor="#B5BFD0"
+                  style={{
+                    fontWeight: "bold",
+                    paddingHorizontal: 20,
+                    width: "100%",
+                  }}
+                  onChangeText={(text) => {
+                    this.setState({ hashtag: text })
+                  }}
+                />
+              </Box>
+              <View style={{ alignSelf: "center", marginTop: 10 }}>
+                <CreateRoomButton
+                  height={40}
+                  width={275}
+                  borderRadius={20}
+                  createRoom={() => {console.log("CLICKED")}}
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -346,6 +468,41 @@ export class Item extends Component {
           }}
         />
       </View>
+    );
+  }
+}
+
+export class CreateRoomButton extends Component {
+  render() {
+    return (
+      <Box height={40} width={300} borderRadius={20}>
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          colors={['#EA688A', '#EA7A7F']}
+          style={{
+            height: 40,
+            borderRadius: 20,
+            width: 300,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'transparent',
+              height: 40,
+              width: 300,
+            }}
+            onPress={this.props.createRoom}>
+            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>
+              CREATE ROOM
+            </Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </Box>
     );
   }
 }

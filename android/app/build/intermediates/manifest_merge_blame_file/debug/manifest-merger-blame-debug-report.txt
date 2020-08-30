@@ -1,0 +1,325 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.messenger"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="29" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->C:\Users\aryam\messenger\android\app\src\debug\AndroidManifest.xml:5:5-77
+11-->C:\Users\aryam\messenger\android\app\src\debug\AndroidManifest.xml:5:22-75
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:4:5-67
+12-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:4:22-64
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->[com.facebook.flipper:flipper:0.37.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\43c8a7b2644749dbdcc223a0d2272409\flipper-0.37.0\AndroidManifest.xml:16:5-76
+13-->[com.facebook.flipper:flipper:0.37.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\43c8a7b2644749dbdcc223a0d2272409\flipper-0.37.0\AndroidManifest.xml:16:22-73
+14    <uses-permission android:name="android.permission.WAKE_LOCK" />
+14-->[:react-native-firebase_auth] C:\Users\aryam\messenger\node_modules\@react-native-firebase\auth\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-68
+14-->[:react-native-firebase_auth] C:\Users\aryam\messenger\node_modules\@react-native-firebase\auth\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:22-65
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+15-->[:react-native-firebase_auth] C:\Users\aryam\messenger\node_modules\@react-native-firebase\auth\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-79
+15-->[:react-native-firebase_auth] C:\Users\aryam\messenger\node_modules\@react-native-firebase\auth\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:22-76
+16    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+16-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:26:5-82
+16-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:26:22-79
+17    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+17-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:26:5-110
+17-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:26:22-107
+18
+19    <application
+19-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:6:5-25:19
+20        android:name="com.messenger.MainApplication"
+20-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:7:7-38
+21        android:allowBackup="false"
+21-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:11:7-34
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.1.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\4c112ea1673c74046d79ce05bc8542bd\core-1.1.0\AndroidManifest.xml:24:18-86
+23        android:debuggable="true"
+24        android:icon="@mipmap/ic_launcher"
+24-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:9:7-41
+25        android:label="@string/app_name"
+25-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:8:7-39
+26        android:roundIcon="@mipmap/ic_launcher_round"
+26-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:10:7-52
+27        android:theme="@style/AppTheme"
+27-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:12:7-38
+28        android:usesCleartextTraffic="true" >
+28-->C:\Users\aryam\messenger\android\app\src\debug\AndroidManifest.xml:7:18-53
+29        <activity
+29-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:13:7-23:18
+30            android:name="com.messenger.MainActivity"
+30-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:14:9-37
+31            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+31-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:16:9-86
+32            android:label="@string/app_name"
+32-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:15:9-41
+33            android:launchMode="singleTask"
+33-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:17:9-40
+34            android:windowSoftInputMode="adjustResize" >
+34-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:18:9-51
+35            <intent-filter>
+35-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:19:9-22:25
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:20:13-65
+36-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:20:21-62
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:21:13-73
+38-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:21:23-70
+39            </intent-filter>
+40        </activity>
+41        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+41-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:24:7-84
+41-->C:\Users\aryam\messenger\android\app\src\main\AndroidManifest.xml:24:17-81
+42
+43        <service android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingHeadlessService" />
+43-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:9-111
+43-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:18-108
+44        <service
+44-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:9-23:19
+45            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"
+45-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-95
+46            android:exported="false" >
+46-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-37
+47            <intent-filter>
+47-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-22:29
+48                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+48-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:17-78
+48-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:25-75
+49            </intent-filter>
+50        </service>
+51
+52        <receiver
+52-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:9-32:20
+53            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingReceiver"
+53-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-96
+54            android:exported="true"
+54-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:13-36
+55            android:permission="com.google.android.c2dm.permission.SEND" >
+55-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:13-73
+56            <intent-filter>
+56-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:29:13-31:29
+57                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+57-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:17-81
+57-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:25-78
+58            </intent-filter>
+59        </receiver>
+60
+61        <meta-data
+61-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:9-36:36
+62            android:name="firebase_messaging_auto_init_enabled"
+62-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:13-64
+63            android:value="true" />
+63-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:13-33
+64        <meta-data
+64-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:9-39:32
+65            android:name="com.google.firebase.messaging.default_notification_channel_id"
+65-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:13-89
+66            android:value="" />
+66-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:39:13-29
+67        <meta-data
+67-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:9-42:47
+68            android:name="com.google.firebase.messaging.default_notification_color"
+68-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:41:13-84
+69            android:resource="@color/white" />
+69-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:42:13-44
+70
+71        <service
+71-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\8f76acb73c25a9c5214bb19427e9abaa\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:17:9-23:19
+72            android:name="com.google.firebase.components.ComponentDiscoveryService"
+72-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\8f76acb73c25a9c5214bb19427e9abaa\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:18:13-84
+73            android:directBootAware="true"
+73-->[com.google.firebase:firebase-common:19.3.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2cae301b0c313c53083ddf23558fb856\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+74            android:exported="false" >
+74-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\8f76acb73c25a9c5214bb19427e9abaa\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:19:13-37
+75            <meta-data
+75-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\8f76acb73c25a9c5214bb19427e9abaa\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:20:13-22:85
+76                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+76-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\8f76acb73c25a9c5214bb19427e9abaa\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:21:17-111
+77                android:value="com.google.firebase.components.ComponentRegistrar" />
+77-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\8f76acb73c25a9c5214bb19427e9abaa\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:22:17-82
+78            <meta-data
+78-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:39:13-41:85
+79                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+79-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:40:17-119
+80                android:value="com.google.firebase.components.ComponentRegistrar" />
+80-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:41:17-82
+81            <meta-data
+81-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9609f87066f71a0432e9646f4b75f63\firebase-datatransport-17.0.3\AndroidManifest.xml:28:13-30:85
+82                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+82-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9609f87066f71a0432e9646f4b75f63\firebase-datatransport-17.0.3\AndroidManifest.xml:29:17-115
+83                android:value="com.google.firebase.components.ComponentRegistrar" />
+83-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9609f87066f71a0432e9646f4b75f63\firebase-datatransport-17.0.3\AndroidManifest.xml:30:17-82
+84            <meta-data
+84-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:36:13-38:85
+85                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+85-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:37:17-109
+86                android:value="com.google.firebase.components.ComponentRegistrar" />
+86-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:38:17-82
+87            <meta-data
+87-->[com.google.firebase:firebase-database:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\fbe913651a1c2fb5c2ce10fffe0401f5\firebase-database-19.3.1\AndroidManifest.xml:32:13-34:85
+88                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+88-->[com.google.firebase:firebase-database:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\fbe913651a1c2fb5c2ce10fffe0401f5\firebase-database-19.3.1\AndroidManifest.xml:33:17-109
+89                android:value="com.google.firebase.components.ComponentRegistrar" />
+89-->[com.google.firebase:firebase-database:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\fbe913651a1c2fb5c2ce10fffe0401f5\firebase-database-19.3.1\AndroidManifest.xml:34:17-82
+90            <meta-data
+90-->[com.google.android.gms:play-services-measurement-api:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c39d31f25deaa0e83183fa6589a1d5e1\play-services-measurement-api-17.4.3\AndroidManifest.xml:30:13-32:85
+91                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+91-->[com.google.android.gms:play-services-measurement-api:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c39d31f25deaa0e83183fa6589a1d5e1\play-services-measurement-api-17.4.3\AndroidManifest.xml:31:17-139
+92                android:value="com.google.firebase.components.ComponentRegistrar" />
+92-->[com.google.android.gms:play-services-measurement-api:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c39d31f25deaa0e83183fa6589a1d5e1\play-services-measurement-api-17.4.3\AndroidManifest.xml:32:17-82
+93            <meta-data
+93-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:32:13-34:85
+94                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+94-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:33:17-96
+95                android:value="com.google.firebase.components.ComponentRegistrar" />
+95-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:34:17-82
+96            <meta-data
+96-->[com.google.firebase:firebase-installations:16.3.2] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\3ee71a5f09c910d300b167e9cb8550f4\firebase-installations-16.3.2\AndroidManifest.xml:17:13-19:85
+97                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+97-->[com.google.firebase:firebase-installations:16.3.2] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\3ee71a5f09c910d300b167e9cb8550f4\firebase-installations-16.3.2\AndroidManifest.xml:18:17-127
+98                android:value="com.google.firebase.components.ComponentRegistrar" />
+98-->[com.google.firebase:firebase-installations:16.3.2] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\3ee71a5f09c910d300b167e9cb8550f4\firebase-installations-16.3.2\AndroidManifest.xml:19:17-82
+99        </service>
+100        <!--
+101             FirebaseMessagingService performs security checks at runtime,
+102             but set to not exported to explicitly avoid allowing another app to call it.
+103        -->
+104        <service
+104-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:28:9-35:19
+105            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+105-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:29:13-82
+106            android:directBootAware="true"
+106-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:30:13-43
+107            android:exported="false" >
+107-->[com.google.firebase:firebase-messaging:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\de9fcdbc65e6dff61f95dd8637d7561a\jetified-firebase-messaging-20.2.1\AndroidManifest.xml:31:13-37
+108            <intent-filter android:priority="-500" >
+108-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-22:29
+109                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+109-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:17-78
+109-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:25-75
+110            </intent-filter>
+111        </service>
+112        <service
+112-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\173e87527c1afdb4b2bb48cefe6c0a1b\transport-backend-cct-2.2.0\AndroidManifest.xml:29:9-35:19
+113            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+113-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\173e87527c1afdb4b2bb48cefe6c0a1b\transport-backend-cct-2.2.0\AndroidManifest.xml:30:13-103
+114            android:exported="false" >
+114-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\173e87527c1afdb4b2bb48cefe6c0a1b\transport-backend-cct-2.2.0\AndroidManifest.xml:31:13-37
+115            <meta-data
+115-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\173e87527c1afdb4b2bb48cefe6c0a1b\transport-backend-cct-2.2.0\AndroidManifest.xml:32:13-34:39
+116                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+116-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\173e87527c1afdb4b2bb48cefe6c0a1b\transport-backend-cct-2.2.0\AndroidManifest.xml:33:17-94
+117                android:value="cct" />
+117-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\173e87527c1afdb4b2bb48cefe6c0a1b\transport-backend-cct-2.2.0\AndroidManifest.xml:34:17-36
+118        </service>
+119        <service
+119-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:26:9-30:19
+120            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+120-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:27:13-117
+121            android:exported="false"
+121-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:28:13-37
+122            android:permission="android.permission.BIND_JOB_SERVICE" >
+122-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:29:13-69
+123        </service>
+124
+125        <receiver
+125-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:32:9-34:40
+126            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+126-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:33:13-132
+127            android:exported="false" />
+127-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\266a0ac5185564d54959eeac0a3aabf4\transport-runtime-2.2.0\AndroidManifest.xml:34:13-37
+128
+129        <activity
+129-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:24:9-31:50
+130            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+130-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:25:13-85
+131            android:excludeFromRecents="true"
+131-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:26:13-46
+132            android:exported="true"
+132-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:27:13-36
+133            android:launchMode="singleTask"
+133-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:28:13-44
+134            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+134-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:29:13-102
+135            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+135-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\18c6f176f2dca4e39955fca37474b399\firebase-auth-19.3.1\AndroidManifest.xml:30:13-72
+136
+137        <receiver
+137-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:37:9-44:20
+138            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+138-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:38:13-78
+139            android:exported="true"
+139-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:39:13-36
+140            android:permission="com.google.android.c2dm.permission.SEND" >
+140-->[com.google.firebase:firebase-iid:20.2.1] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2c5b6afb1307a583677a854a6c4bb387\firebase-iid-20.2.1\AndroidManifest.xml:40:13-73
+141            <intent-filter>
+141-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:29:13-31:29
+142                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+142-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:17-81
+142-->[:react-native-firebase_messaging] C:\Users\aryam\messenger\node_modules\@react-native-firebase\messaging\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:25-78
+143            </intent-filter>
+144        </receiver>
+145
+146        <activity
+146-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9db7ca102a61e71756cc841696a0623\play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+147            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+147-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9db7ca102a61e71756cc841696a0623\play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+148            android:exported="false"
+148-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9db7ca102a61e71756cc841696a0623\play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+149            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+149-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\a9db7ca102a61e71756cc841696a0623\play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+150
+151        <provider
+151-->[com.google.firebase:firebase-common:19.3.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2cae301b0c313c53083ddf23558fb856\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+152            android:name="com.google.firebase.provider.FirebaseInitProvider"
+152-->[com.google.firebase:firebase-common:19.3.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2cae301b0c313c53083ddf23558fb856\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+153            android:authorities="com.messenger.firebaseinitprovider"
+153-->[com.google.firebase:firebase-common:19.3.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2cae301b0c313c53083ddf23558fb856\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+154            android:exported="false"
+154-->[com.google.firebase:firebase-common:19.3.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2cae301b0c313c53083ddf23558fb856\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+155            android:initOrder="100" />
+155-->[com.google.firebase:firebase-common:19.3.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\2cae301b0c313c53083ddf23558fb856\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+156
+157        <receiver
+157-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:29:9-33:20
+158            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+158-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:30:13-85
+159            android:enabled="true"
+159-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:31:13-35
+160            android:exported="false" >
+160-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:32:13-37
+161        </receiver>
+162
+163        <service
+163-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:35:9-38:40
+164            android:name="com.google.android.gms.measurement.AppMeasurementService"
+164-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:36:13-84
+165            android:enabled="true"
+165-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:37:13-35
+166            android:exported="false" />
+166-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:38:13-37
+167        <service
+167-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:39:9-43:72
+168            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+168-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:40:13-87
+169            android:enabled="true"
+169-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:41:13-35
+170            android:exported="false"
+170-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:42:13-37
+171            android:permission="android.permission.BIND_JOB_SERVICE" />
+171-->[com.google.android.gms:play-services-measurement:17.4.3] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\c259453b91961695c439640928a300c9\play-services-measurement-17.4.3\AndroidManifest.xml:43:13-69
+172
+173        <meta-data
+173-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\fc3a23ff585d351b9552cf6942ce385c\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+174            android:name="com.google.android.gms.version"
+174-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\fc3a23ff585d351b9552cf6942ce385c\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+175            android:value="@integer/google_play_services_version" />
+175-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\aryam\.gradle\caches\transforms-2\files-2.1\fc3a23ff585d351b9552cf6942ce385c\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+176    </application>
+177
+178</manifest>
