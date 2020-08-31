@@ -188,6 +188,7 @@ class addPeople extends Component {
                 paddingLeft: 20,
                 width: '95%',
               }}
+              autoFocus={true}
               onChangeText={text => {
                 // this.setState({enteredText: text})
                 this.searchFunction(text)
@@ -294,7 +295,7 @@ class addPeople extends Component {
           >
             <View
               style={{
-                height: 250,
+                height: 200,
                 width: "80%",
                 borderWidth: 3,
                 borderColor: "#e5e5e5",
@@ -436,7 +437,7 @@ export class Item extends Component {
           <View>
             {this.state.selected ? (
               <TouchableOpacity onPress={this.selected}>
-                <Box width={20} height={20} borderRadius={10}>
+                <Box width={30} height={30} borderRadius={15}>
                   <View
                     style={{
                       backgroundColor: '#EA688A',
@@ -451,7 +452,7 @@ export class Item extends Component {
               </TouchableOpacity>
             ) : (
                 <TouchableOpacity onPress={this.selected}>
-                  <Box width={20} height={20} borderRadius={10} />
+                  <Box width={30} height={30} borderRadius={15} />
                 </TouchableOpacity>
               )}
           </View>
@@ -475,7 +476,7 @@ export class Item extends Component {
 export class CreateRoomButton extends Component {
   render() {
     return (
-      <Box height={40} width={300} borderRadius={20}>
+      <Box height={40} width={275} borderRadius={20}>
         <LinearGradient
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
@@ -483,7 +484,7 @@ export class CreateRoomButton extends Component {
           style={{
             height: 40,
             borderRadius: 20,
-            width: 300,
+            width: 275,
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
@@ -494,7 +495,7 @@ export class CreateRoomButton extends Component {
               justifyContent: 'center',
               backgroundColor: 'transparent',
               height: 40,
-              width: 300,
+              width: 275,
             }}
             onPress={this.props.createRoom}>
             <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 12 }}>
