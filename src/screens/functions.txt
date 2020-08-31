@@ -1,0 +1,192 @@
+**********(1.) ADD FRIEND
+
+addFriend(user,data) {
+    firestore().collection('users').doc(user)
+    .update({
+        friends: firestore.FieldValue.arrayUnion(data)
+    })
+}
+
+**********(2.) REMOVE FRIEND
+
+removeFriend(user,data) {
+    firestore().collection('users').doc(user)
+    .update({
+        friends: firestore.FieldValue.arrayRemove(data)
+    })
+}
+
+**********(3.) ADD CHATROOM
+
+removeFriend(user,data) {
+    firestore().collection('users').doc(user)
+    .update({
+        chatrooms: firestore.FieldValue.arrayUnion(data)
+    })
+}
+
+**********(4.) REMOVE CHATROOM
+
+removeFriend(user,data) {
+    firestore().collection('users').doc(user)
+    .update({
+        chatrooms: firestore.FieldValue.arrayRemove(data)
+    })
+}
+
+**********(5.) CREATE USER
+
+createUser(user) {
+    firestore().collection('users').doc(user['username']).set({
+        name: user['name'],
+        online: true,
+        friends: [],
+        chatrooms: [],
+        photoUrl: user['photoUrl']
+    })
+}
+
+**********(6.) CREATE CHATROOM
+
+for ( var i =0 ; i < this.props.chat.chatrooms.length ; i+=1 ) {
+    var item = this.props.chat.chatrooms[i]
+    if(JSON.stringify(item['data']['members']) === JSON.stringify(Object.keys(this.state.select))) {
+
+        if(item['data']['title'] === '') {
+            var name = item.id.split("_")
+                  if (name[0] == this.props.user.userinfo.username) {
+                    item.data.title = name[1]
+                  }
+                  else {
+                    item.data.title = name[0]
+                  }
+        }
+
+        var photo
+                if (item.data.photoUrl === undefined) {
+                  photo = this.state.displayReplica[item.data.title]['photoUrl']
+                }
+                else {
+                  photo = item.data.photoUrl
+                }
+
+                this.props.navigation.navigate('messageScreen', {
+                      id: item.id,
+                      isGroup: item.data.isGroup,
+                      members: item.data.members,
+                      title: item.data.title,
+                      last_message: item.data.last_message,
+                      last_time: item.data.last_time,
+                      photoUrl: photo
+                    })
+
+                    break;
+
+    }
+
+    else {
+        if(Object.keys(this.state.select).length === 2) {
+            var user1 = Object.keys(this.state.select)[0]
+            var user2 = Object.keys(this.state.select)[1]
+            var roomName = (user1<user2 ? user1+'_'+user2 : user2+'_'+user1)
+            var final
+  //     var typing = {}
+  //     for (var i = 0; i < this.state.selected.length; i += 1) {
+  //       typing[this.state.selected[i]] = false
+  //     }
+  //     final = {
+  //       createdBy: this.props.user.userinfo.username,
+  //       createdAt: new Date().toISOString(),
+  //       members: this.state.selected,
+  //       photoUrl: 'https://i.picsum.photos/id/637/200/200.jpg?hmac=5gHTwbVytbdI9UEOz3_YW6GES2HCcph0DN7ylAvsN0Y',
+  //       isGroup: false,
+  //       last_message: "",
+  //       last_date: "",
+  //       title: 'group',
+  //       typing: typing
+  //     }
+            firestore().collection('chatrooms).doc(roomName).set(final)
+        }
+        else {
+            var final
+  //     var typing = {}
+  //     for (var i = 0; i < this.state.selected.length; i += 1) {
+  //       typing[this.state.selected[i]] = false
+  //     }
+  //     console.log("TYPING",typing)
+  //     final = {
+  //       createdBy: this.props.user.userinfo.username,
+  //       createdAt: new Date().toISOString(),
+  //       members: this.state.selected,
+  //       photoUrl: 'https://i.picsum.photos/id/637/200/200.jpg?hmac=5gHTwbVytbdI9UEOz3_YW6GES2HCcph0DN7ylAvsN0Y',
+  //       isGroup: true,
+  //       last_message: "",
+  //       last_date: "",
+  //       title: 'group',
+  //       typing: typing
+  //     }
+
+        firestore().collection('chatrooms).add(final)
+
+        }
+    }
+}
+
+**********(7.) CREATE ZAP
+
+sendZap(user , selected) {
+
+    var input = selected
+
+    var select = Object.keys(selected)
+
+    for( var i=0 ; i<select.length ; i+=1) {
+        var user1 = select[i]
+        var roomName = user1<user ? user1+'_'+user : user+'_'+user1
+        if(this.props.user.replica[roomName] === undefined) {
+            input[user1] = false
+        }
+    }
+
+    fetch('endpoint', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    firstParam: 'yourValue',
+    secondParam: 'yourOtherValue'
+  })
+})
+    .then((info) => {
+        return info.json()
+    })
+    .then((info) => {
+        if(info === false) {
+            console.log("YESSSS!")
+        }
+        else {
+            console.log("NO!")
+        }
+    })
+    .catch((err) => console.log("ERROR",err))
+   
+}
+
+**********(8.) SEEN ZAP
+
+seenZap(user , chatroomId , messageId) {
+    firestore().collection('chatrooms').doc(chatroomId)
+        .collection('messages').doc(messageId).update({
+            [`seen.${user}`] = firestore.FieldValue.increment(1)
+        })
+}
+
+**********(8.) CREATE UNREAD
+
+createUnread(user) {
+    firestore().collection('unread').doc(user).set({})
+}
+
+

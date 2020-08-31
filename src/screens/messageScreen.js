@@ -45,6 +45,7 @@ class messageScreen extends Component {
       topDisplay: undefined
     }
     this.onlineCount = 0
+    this.unreadMessage = {}
   }
 
   typingStatus() {
@@ -154,7 +155,7 @@ class messageScreen extends Component {
   }
 
   setLastMessage(msg, time) {
-    console.log("SET LAST MESSAGE TIME",time)
+    console.log("SET LAST MESSAGE TIME", time)
     firestore().collection('chatrooms')
       .doc(`${this.props.navigation.getParam('id')}`)
       .update({
@@ -173,7 +174,7 @@ class messageScreen extends Component {
         content: data,
         createdAt: date
       })
-      console.log("SEND MESSAGE TIME",date)
+    console.log("SEND MESSAGE TIME", date)
 
     this.setLastMessage(data, date)
     this.setUnread()
@@ -214,6 +215,10 @@ class messageScreen extends Component {
           var d = doc.data()
           d['id'] = doc.id
           i += 1
+          if (unread > 0 && i === unread) {
+            this.unreadMessage['content'] = d['content']
+            this.unreadMessage['createdAt'] = d['createdAt']
+          }
           chats.push(d)
         })
         this.props.dispatch({
@@ -432,21 +437,11 @@ class messageScreen extends Component {
                   dt = `${hours}:${minutes} AM`
                 }
               }
-              if (item.sender == this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
-                return (
-                  <OutgoingMsg
-                    isGroupChat={false}
-                    username="You"
-                    message={item.content}
-                    time={dt}
-                    index={index}
-                  />
-                )
-              }
-              else if (item.sender == this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.navigate('last_time')) {
-                return (
-                  <View>
-                    <ChatDate chatDate={`${unread} Unread Messages`} />
+
+              if (item.type === undefined) {
+
+                if (item.sender == this.props.user.userinfo.username && (item.createdAt !== this.unreadMessage['createdAt'] || item.content !== this.unreadMessage['content'])) {
+                  return (
                     <OutgoingMsg
                       isGroupChat={false}
                       username="You"
@@ -454,27 +449,24 @@ class messageScreen extends Component {
                       time={dt}
                       index={index}
                     />
-                  </View>
-                )
-              }
-              else if (item.sender != this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
-                return (
-                  <IncomingMsg
-                    isGroupChat={this.props.navigation.getParam('isGroup')}
-                    username={item.sender}
-                    message={item.content}
-                    navigateToProfile={() => {
-                      console.log("TIME", item.createdAt);
-                    }}
-                    time={dt}
-                    index={index}
-                  />
-                )
-              }
-              else if (item.sender != this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.navigate('last_time')) {
-                return (
-                  <View>
-                    <ChatDate chatDate={`${unread} Unread Messages`} />
+                  )
+                }
+                else if (item.sender == this.props.user.userinfo.username && item.content === this.unreadMessage['content'] && item.createdAt === this.unreadMessage['createdAt']) {
+                  return (
+                    <View>
+                      <ChatDate chatDate={`${unread} Unread Messages`} />
+                      <OutgoingMsg
+                        isGroupChat={false}
+                        username="You"
+                        message={item.content}
+                        time={dt}
+                        index={index}
+                      />
+                    </View>
+                  )
+                }
+                else if (item.sender != this.props.user.userinfo.username && ( item.createdAt !== this.unreadMessage['createdAt'] || item.content !== this.unreadMessage['content'])) {
+                  return (
                     <IncomingMsg
                       isGroupChat={this.props.navigation.getParam('isGroup')}
                       username={item.sender}
@@ -485,29 +477,32 @@ class messageScreen extends Component {
                       time={dt}
                       index={index}
                     />
-                  </View>
-                )
+                  )
+                }
+                else if (item.sender != this.props.user.userinfo.username && item.content === this.unreadMessage['content'] && item.createdAt === this.unreadMessage['createdAt']) {
+                  return (
+                    <View>
+                      <ChatDate chatDate={`${unread} Unread Messages`} />
+                      <IncomingMsg
+                        isGroupChat={this.props.navigation.getParam('isGroup')}
+                        username={item.sender}
+                        message={item.content}
+                        navigateToProfile={() => {
+                          console.log("TIME", item.createdAt);
+                        }}
+                        time={dt}
+                        index={index}
+                      />
+                    </View>
+                  )
+                }
+
               }
 
-              //////////////////////////////////////////////////////////////////////////////////
-              //////////////////////////////////////////////////////////////////////////////////
+              else if (item.type === 'zap') {
 
-              if (item.sender == this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
-                return (
-                  <OutgoingZap
-                    zapMessage={`You zapped you a ${item.content}`}
-                    openButton={() => {
-                      console.log('opened@');
-                    }}
-                    seen={false}
-                    profilePic={this.props.user.userinfo.photoUrl}
-                  />
-                )
-              }
-              else if (item.sender == this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.getParam('last_time')) {
-                return (
-                  <View>
-                    <ChatDate chatDate={`${unread} Unread Messages`} />
+                if (item.sender == this.props.user.userinfo.username && ( item.createdAt !== this.unreadMessage['createdAt'] || item.content !== this.unreadMessage['content'])) {
+                  return (
                     <OutgoingZap
                       zapMessage={`You zapped you a ${item.content}`}
                       openButton={() => {
@@ -516,25 +511,25 @@ class messageScreen extends Component {
                       seen={false}
                       profilePic={this.props.user.userinfo.photoUrl}
                     />
-                  </View>
-                )
-              }
-              else if (item.sender != this.props.user.userinfo.username && (item.createdAt !== this.props.navigation.getParam('last_time') || unread === 0)) {
-                return (
-                  <IncomingZap
-                    zapMessage={`${item.sender} zapped you a ${item.content}`}
-                    openButton={() => {
-                      console.log('opened');
-                    }}
-                    seen={false}
-                    profilePic={this.props.user.friends[item.sender]['photoUrl']}
-                  />
-                )
-              }
-              else if (item.sender != this.props.user.userinfo.username && unread > 0 && item.createdAt === this.props.navigation.navigate('last_time')) {
-                return (
-                  <View>
-                    <ChatDate chatDate={`${unread} Unread Messages`} />
+                  )
+                }
+                else if (item.sender == this.props.user.userinfo.username && item.content === this.unreadMessage['content'] && item.createdAt === this.unreadMessage['createdAt']) {
+                  return (
+                    <View>
+                      <ChatDate chatDate={`${unread} Unread Messages`} />
+                      <OutgoingZap
+                        zapMessage={`You zapped you a ${item.content}`}
+                        openButton={() => {
+                          console.log('opened@');
+                        }}
+                        seen={false}
+                        profilePic={this.props.user.userinfo.photoUrl}
+                      />
+                    </View>
+                  )
+                }
+                else if (item.sender != this.props.user.userinfo.username && ( item.createdAt !== this.unreadMessage['createdAt'] || item.content !== this.unreadMessage['content'])) {
+                  return (
                     <IncomingZap
                       zapMessage={`${item.sender} zapped you a ${item.content}`}
                       openButton={() => {
@@ -543,10 +538,25 @@ class messageScreen extends Component {
                       seen={false}
                       profilePic={this.props.user.friends[item.sender]['photoUrl']}
                     />
-                  </View>
-                )
+                  )
+                }
+                else if (item.sender != this.props.user.userinfo.username && item.content === this.unreadMessage['content'] && item.createdAt === this.unreadMessage['createdAt']) {
+                  return (
+                    <View>
+                      <ChatDate chatDate={`${unread} Unread Messages`} />
+                      <IncomingZap
+                        zapMessage={`${item.sender} zapped you a ${item.content}`}
+                        openButton={() => {
+                          console.log('opened');
+                        }}
+                        seen={false}
+                        profilePic={this.props.user.friends[item.sender]['photoUrl']}
+                      />
+                    </View>
+                  )
+                }
               }
-            }
+              }
 
             }
           />

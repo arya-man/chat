@@ -397,19 +397,9 @@ export class Item extends Component {
     }
   };
 
-  // selected = () => {
-  //   if (this.props.selectOrNot) {
-  //     this.setState({ selected: false });
-  //     this.props.unSelectFunction();
-  //   } else {
-  //     this.setState({ selected: true });
-  //     this.props.selectFunction();
-  //   }
-  // };
-
   render() {
     return (
-      <View>
+      <TouchableOpacity onPress={this.selected}>
         <View
           style={{
             flexDirection: 'row',
@@ -436,24 +426,20 @@ export class Item extends Component {
           </View>
           <View>
             {this.state.selected ? (
-              <TouchableOpacity onPress={this.selected}>
-                <Box width={30} height={30} borderRadius={15}>
+                <Box width={20} height={20} borderRadius={10}>
                   <View
                     style={{
                       backgroundColor: '#EA688A',
-                      height: 15,
-                      width: 15,
-                      marginTop: 1.5,
-                      borderRadius: 7.5,
+                      height: 20,
+                      width: 20,
+                      // marginTop: 1.5,
+                      borderRadius: 10,
                       alignSelf: 'center',
                     }}
                   />
                 </Box>
-              </TouchableOpacity>
             ) : (
-                <TouchableOpacity onPress={this.selected}>
-                  <Box width={30} height={30} borderRadius={15} />
-                </TouchableOpacity>
+                  <Box width={20} height={20} borderRadius={10} />
               )}
           </View>
         </View>
@@ -468,7 +454,7 @@ export class Item extends Component {
             opacity: 0.2,
           }}
         />
-      </View>
+      </TouchableOpacity>
     );
   }
 }
